@@ -9,13 +9,9 @@ Just temporary rooms and raw communication.
 ## ⚡ Features
 
 * Real-time chat using Socket.IO
-* Auto-generated usernames
 * Temporary chat rooms
 * Room expiration timer
 * Destroy room option
-* Dark, minimal UI
-* No data stored anywhere
-
 ---
 
 ## 🧱 Tech Stack
