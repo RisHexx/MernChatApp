@@ -18,6 +18,7 @@ export default function Chat() {
   const [input, setInput] = useState("");
   const [remaining, setRemaining] = useState(0);
   const [isCreator, setIsCreator] = useState(false);
+  const [copied, setCopied] = useState(false);
 
   const endRef = useRef(null);
 
@@ -26,6 +27,7 @@ export default function Chat() {
       navigate("/");
       return;
     }
+
 
     socket.connect();
 
@@ -86,8 +88,18 @@ export default function Chat() {
   return (
     <div className="min-h-screen bg-black text-zinc-300 font-mono flex flex-col">
       <div className="border-b border-zinc-800 px-6 py-4 flex items-center justify-between">
-        <div className="text-xs uppercase tracking-wide text-zinc-500">
+        <div className="text-xs uppercase tracking-wide text-zinc-500 flex items-center gap-2">
           Room: <span className="text-zinc-300">{roomCode}</span>
+          <button
+            className="border border-zinc-700 px-2 py-0.5 text-zinc-400 hover:text-white"
+            onClick={() => {
+              navigator.clipboard.writeText(roomCode);
+              setCopied(true);
+              setTimeout(() => setCopied(false), 2000);
+            }}
+          >
+            {copied ? "Copied" : "Copy"}
+          </button>
         </div>
         <div className="flex items-center gap-4">
           <div className="text-zinc-400 text-sm">{formatTime(remaining)}</div>

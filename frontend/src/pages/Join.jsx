@@ -16,13 +16,19 @@ export default function Join() {
     }
   }, [navigate]);
 
+  // A boolean returned by useMemo and only calculated when roomCode changes
   const canJoin = useMemo(() => roomCode.trim().length > 0, [roomCode]);
 
   const handleJoin = () => {
     const username = localStorage.getItem("chat_username") || "";
     const code = roomCode.trim().toUpperCase();
-    const mins = Math.max(1, Math.min(60, Number(duration) || 1));
+    // Number(duration) convert duration to number if it wont default will become 10
+    // Math.min(60 , your_time) ensures it should below 60
+    // Math.max(1 , your_time) ensures it should +ve and above 1
+    const mins = Math.max(1, Math.min(60, Number(duration) || 10));
     if (!code) return;
+
+    // navigate(to, options) we passing state as an options so we can acess it there
     navigate("/chat", {
       state: {
         username: username.trim(),
