@@ -2,6 +2,11 @@ import React, { useEffect, useMemo, useRef, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import socket from "../socket.js";
 
+
+// we are not managing timer logic of frontend since it can modified by endusers.
+
+
+
 function formatTime(seconds) {
   const safe = Math.max(0, seconds || 0);
   const m = String(Math.floor(safe / 60)).padStart(2, "0");
@@ -28,7 +33,7 @@ export default function Chat() {
       return;
     }
 
-
+    // since we did autoconnect: false , we have to do this here.
     socket.connect();
 
     const handleJoined = (payload) => {
@@ -52,6 +57,10 @@ export default function Chat() {
       }
     };
 
+
+    /* “useEffect is only used to set up the listeners while mounting . The listeners themselves live independently 
+    afterward.” 
+    They keep listning to server side emits */
     socket.on("room-joined", handleJoined);
     socket.on("message", handleMessage);
     socket.on("room-destroyed", handleDestroyed);
@@ -59,6 +68,7 @@ export default function Chat() {
 
     socket.emit("join-room", { username, roomCode, duration });
 
+    //cleaning 
     return () => {
       socket.off("room-joined", handleJoined);
       socket.off("message", handleMessage);
@@ -68,6 +78,9 @@ export default function Chat() {
     };
   }, [username, roomCode, duration, navigate]);
 
+
+  // whenver new message comes we smooth scrolled to this ref div we placed end of message.
+  // so we see latest message everytime
   useEffect(() => {
     endRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages]);
@@ -113,10 +126,11 @@ export default function Chat() {
           )}
         </div>
       </div>
-
+      {/* flex 1 means it will take all remaining height left */}
       <div className="flex-1 overflow-y-auto px-6 py-6">
         <div className="flex flex-col gap-4">
           {messages.map((msg) => {
+            // checking if msg is mine or not to get it location of left or right
             const mine = msg?.senderId === socket.id;
             return (
               <div
@@ -136,7 +150,9 @@ export default function Chat() {
               </div>
             );
           })}
-          <div ref={endRef} />
+          {/* for smooth scroolling we added above */}
+          <div ref={endRef} />  
+
         </div>
       </div>
 
