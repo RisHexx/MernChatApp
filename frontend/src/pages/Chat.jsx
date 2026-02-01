@@ -5,8 +5,6 @@ import socket from "../socket.js";
 
 // we are not managing timer logic of frontend since it can modified by endusers.
 
-
-
 function formatTime(seconds) {
   const safe = Math.max(0, seconds || 0);
   const m = String(Math.floor(safe / 60)).padStart(2, "0");
