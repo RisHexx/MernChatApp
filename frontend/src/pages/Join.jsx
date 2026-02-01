@@ -6,6 +6,9 @@ export default function Join() {
   const [roomCode, setRoomCode] = useState("");
   const [duration, setDuration] = useState(20);
 
+
+  // Check if user is not directly going to /join 
+  // if he is it will redirect to entry page and let his set username
   useEffect(() => {
     const stored = localStorage.getItem("chat_username");
     if (!stored || !stored.trim()) {

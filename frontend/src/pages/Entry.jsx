@@ -42,6 +42,7 @@ export default function Entry() {
     setUsername(fresh);
   }, []);
 
+  // a boolean returned by useMemo and only calculated when username changes
   const isValid = useMemo(() => username.trim().length > 0, [username]);
 
   const handleContinue = () => {
@@ -54,8 +55,8 @@ export default function Entry() {
   return (
     <div className="min-h-screen bg-black text-zinc-300 flex items-center justify-center font-mono">
       <div className="w-full max-w-md border border-zinc-700 p-8">
-        <div className="text-sm tracking-wide mb-6 text-zinc-400">
-          This is a private chat app
+        <div className="text-md tracking-wide mb-6 text-green-500">
+           { ">" } Welcome to { "{"} Void-Chat { "}"}
         </div>
         <label className="block text-xs uppercase text-zinc-500 mb-2">
           Username
