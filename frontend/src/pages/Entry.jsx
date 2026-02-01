@@ -22,7 +22,7 @@ const animals = [
 
 function generateUsername() {
   const animal = animals[Math.floor(Math.random() * animals.length)];
-  const rand = Math.random().toString(36).slice(2, 7);
+  const rand = Math.random().toString(36).slice(2, 7); // slice 2 because avoid (0 and . )
   return `${animal}-${rand}`;
 }
 
@@ -30,6 +30,7 @@ export default function Entry() {
   const navigate = useNavigate();
   const [username, setUsername] = useState("");
 
+  // Generating and Fetching userName
   useEffect(() => {
     const stored = localStorage.getItem("chat_username");
     if (stored && stored.trim()) {
@@ -59,16 +60,9 @@ export default function Entry() {
         <label className="block text-xs uppercase text-zinc-500 mb-2">
           Username
         </label>
-        <input
-          className="w-full bg-black border border-zinc-700 px-3 py-2 text-zinc-200 focus:outline-none"
-          value={username}
-          onChange={(e) => {
-            setUsername(e.target.value);
-            localStorage.setItem("chat_username", e.target.value);
-          }}
-          spellCheck={false}
-          autoComplete="off"
-        />
+        <div className="w-full bg-black border border-zinc-700 px-3 py-2 text-zinc-200">
+          {username}
+        </div>
         <button
           className="mt-6 w-full border border-yellow-500 py-2 text-yellow-300 hover:text-yellow-100"
           onClick={handleContinue}

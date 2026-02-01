@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 export default function Join() {
   const navigate = useNavigate();
   const [roomCode, setRoomCode] = useState("");
-  const [duration, setDuration] = useState(10);
+  const [duration, setDuration] = useState(20);
 
   useEffect(() => {
     const stored = localStorage.getItem("chat_username");
