@@ -1,8 +1,3 @@
-Here’s a **short, clean, and cool README** that fits your app’s vibe perfectly 👇
-(You can paste this directly into GitHub)
-
----
-
 # VOIDCHAT
 
 A minimal real-time chat app built with **React + Socket.IO**.
