@@ -5,6 +5,9 @@ import socket from "../socket.js";
 
 // we are not managing timer logic of frontend since it can modified by endusers.
 
+
+// formating how our secods which is coming should look
+// 123 seconds  -> 02 : 03 
 function formatTime(seconds) {
   const safe = Math.max(0, seconds || 0);
   const m = String(Math.floor(safe / 60)).padStart(2, "0");
@@ -34,6 +37,7 @@ export default function Chat() {
     // since we did autoconnect: false , we have to do this here.
     socket.connect();
 
+    // room-joined event listner 
     const handleJoined = (payload) => {
       setIsCreator(Boolean(payload?.isCreator));
       if (typeof payload?.remainingSeconds === "number") {
@@ -41,6 +45,8 @@ export default function Chat() {
       }
     };
 
+
+    // When message event emmited.
     const handleMessage = (message) => {
       setMessages((prev) => [...prev, message]);
     };
@@ -49,6 +55,8 @@ export default function Chat() {
       navigate("/");
     };
 
+
+    // updating remaing time
     const handleTimer = (payload) => {
       if (typeof payload?.remainingSeconds === "number") {
         setRemaining(payload.remainingSeconds);
@@ -114,6 +122,7 @@ export default function Chat() {
         </div>
         <div className="flex items-center gap-4">
           <div className="text-zinc-400 text-sm">{formatTime(remaining)}</div>
+          {/* he can only destroy if he is creator */}
           {isCreator && (
             <button
               className="border border-red-600 px-3 py-1 text-xs text-red-400 hover:text-red-200"

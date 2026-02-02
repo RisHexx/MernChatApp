@@ -8,6 +8,8 @@ const {
 
 function registerSocket(io) {
   io.on("connection", (socket) => {
+
+
     socket.on("join-room", (payload) => {
       const { username, roomCode, duration } = payload || {};
       if (!username || !roomCode || !duration) return;
@@ -41,6 +43,7 @@ function registerSocket(io) {
       if (!room) return;
 
       const message = {
+        //random id for message for react warning to have id.
         id: `${Date.now()}-${Math.random().toString(36).slice(2, 7)}`,
         senderId: socket.id,
         username: socket.data.username || "unknown",
@@ -55,6 +58,8 @@ function registerSocket(io) {
       const { roomCode } = payload || {};
       const room = getRoom(roomCode);
       if (!room) return;
+
+      //checking only admin can destry room
       if (room.creatorId !== socket.id) return;
       await destroyRoom(roomCode, io, "manual");
     });

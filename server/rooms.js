@@ -7,15 +7,25 @@ function getRoom(roomCode) {
 function ensureRoom(roomCode, creatorId, durationMinutes, io) {
   let room = rooms.get(roomCode);
   if (!room) {
+
+    //calculate when room will expire from now.
     const expiresAt = Date.now() + durationMinutes * 60 * 1000;
+
+    // this will run every second
+    // we broadcast how many seconds left to everyone in room
     const timerInterval = setInterval(() => {
+
+      // subtracting current to when its going to expire and dividing by 1000 to convert miliseconds into seconds and ceil to 3.4 -> will be 4 seconds not skipping of seconds
       const remainingSeconds = Math.max(
         0,
         Math.ceil((expiresAt - Date.now()) / 1000)
       );
 
+
+      //broadcasting to everyone
       io.to(roomCode).emit("timer-update", { remainingSeconds });
 
+      // if expires destroy the room
       if (remainingSeconds <= 0) {
         destroyRoom(roomCode, io, "expired");
       }
