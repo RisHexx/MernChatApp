@@ -1,6 +1,6 @@
 # VOIDCHAT
 
-A minimal real-time chat app built with **React + Socket.IO**.
+A minimal real-time chat app built with **React + Node + Socket.IO**.
 
 ---
 
