@@ -56,7 +56,7 @@ export default function Entry() {
     <div className="min-h-screen bg-black text-zinc-300 flex items-center justify-center font-mono">
       <div className="w-full max-w-md border border-zinc-700 p-8">
         <div className="text-md tracking-wide mb-6 text-green-500">
-           { ">" } Welcome to { "{"} Void-Chat { "}"}
+           { ">" } Welcome to <b>Whisper... </b> 
         </div>
         <label className="block text-xs uppercase text-zinc-500 mb-2">
           Username
