@@ -1,6 +1,7 @@
 # Whisper
 
 A minimal real-time chat app built with **React + Node + Socket.IO**.
+![App Screenshot](app_screeenshot.png)
 
 ---
 
@@ -10,6 +11,7 @@ A minimal real-time chat app built with **React + Node + Socket.IO**.
 * Temporary chat rooms
 * Room expiration timer
 * Destroy room option
+
 ---
 
 ## 🧱 Tech Stack
