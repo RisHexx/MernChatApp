@@ -1,4 +1,4 @@
-# VOIDCHAT
+# Hush
 
 A minimal real-time chat app built with **React + Node + Socket.IO**.
 
