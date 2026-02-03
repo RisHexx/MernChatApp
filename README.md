@@ -1,8 +1,6 @@
-# VOIDCHAT
+# Hush
 
-A minimal real-time chat app built with **React + Socket.IO**.
-No database. No auth. No persistence.
-Just temporary rooms and raw communication.
+A minimal real-time chat app built with **React + Node + Socket.IO**.
 
 ---
 
