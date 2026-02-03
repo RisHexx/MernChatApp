@@ -2,7 +2,12 @@
 
 A Real-time chat app built with **React + Node + Socket.IO**.
 
-![App Screenshot](app_screenshot.png)
+## Preview
+
+<p align="center">
+  <img src="./app_screenshot.png" alt="Snippy App Screenshot" width="700" />
+</p>
+
 
 ---
 
