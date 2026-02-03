@@ -1,6 +1,6 @@
 # Whisper
 
-A minimal real-time chat app built with **React + Node + Socket.IO**.
+A Real-time chat app built with **React + Node + Socket.IO**.
 
 ![App Screenshot](app_screenshot.png)
 
