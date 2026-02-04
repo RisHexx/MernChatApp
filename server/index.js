@@ -5,7 +5,7 @@ const { Server } = require("socket.io");
 const registerSocket = require("./socket");
 require('dotenv').config();
 
-
+//app instance
 const app = express();
 app.use(cors());
 
