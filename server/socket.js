@@ -59,7 +59,7 @@ function registerSocket(io) {
       const room = getRoom(roomCode);
       if (!room) return;
 
-      //checking only admin can destry room
+      //checking -> only admin can destry room
       if (room.creatorId !== socket.id) return;
       await destroyRoom(roomCode, io, "manual");
     });
