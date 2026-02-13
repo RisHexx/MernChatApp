@@ -105,8 +105,9 @@ export default function Chat() {
   };
 
   return (
-    <div className="min-h-screen bg-black text-zinc-300 font-mono flex flex-col">
-      <div className="border-b border-zinc-800 px-6 py-4 flex items-center justify-between">
+    <div className="h-screen bg-black text-zinc-300 font-mono flex flex-col overflow-hidden">
+      {/* Fixed navbar */}
+      <div className="fixed top-0 left-0 right-0 z-10 bg-black border-b border-zinc-800 px-6 py-4 flex items-center justify-between">
         <div className="text-xs uppercase tracking-wide text-zinc-500 flex items-center gap-2">
           Room: <span className="text-zinc-300">{roomCode}</span>
           <button
@@ -133,8 +134,8 @@ export default function Chat() {
           )}
         </div>
       </div>
-      {/* flex 1 means it will take all remaining height left */}
-      <div className="flex-1 overflow-y-auto px-6 py-6">
+      {/* Scrollable chat area with padding for fixed header and footer */}
+      <div className="flex-1 overflow-y-auto px-6 py-6 mt-14 mb-16">
         <div className="flex flex-col gap-4">
           {messages.map((msg) => {
             // checking if msg is mine or not to get it location of left or right
@@ -163,7 +164,8 @@ export default function Chat() {
         </div>
       </div>
 
-      <div className="border-t border-zinc-800 px-6 py-4 flex gap-3">
+      {/* Fixed chatbar */}
+      <div className="fixed bottom-0 left-0 right-0 z-10 bg-black border-t border-zinc-800 px-6 py-4 flex gap-3">
         <input
           className="flex-1 bg-black border border-zinc-700 px-3 py-2 text-zinc-200 focus:outline-none"
           value={input}
