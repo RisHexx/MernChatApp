@@ -4,7 +4,7 @@ COPY package*.json .
 RUN npm ci
 
 COPY . .
-
-RUN npm run build
+EXPOSE 5173
+RUN npm run dev
 
 
