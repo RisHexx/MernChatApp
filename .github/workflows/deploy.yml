@@ -1,70 +1,62 @@
 name: CI-CD Pipeline
 
 on:
-push:
-branches:
-- main
+  push:
+    branches:
+      - main
 
 jobs:
-ci:
-runs-on: ubuntu-latest
+  ci:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
 
-steps:
-  - name: Checkout code
-    uses: actions/checkout@v4
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
 
-  - name: Setup Node.js
-    uses: actions/setup-node@v4
-    with:
-      node-version: 20
+      - name: Install backend dependencies
+        run: |
+          cd server
+          npm install
 
-  # Backend
-  - name: Install backend dependencies
-    run: |
-      cd server
-      npm install
+      - name: Run backend tests
+        run: |
+          cd server
+          npm test
 
-  - name: Run backend tests
-    run: |
-      cd server
-      npm test
+      - name: Install frontend dependencies
+        run: |
+          cd frontend
+          npm install
 
-  # Frontend
-  - name: Install frontend dependencies
-    run: |
-      cd frontend
-      npm install
+      - name: Build frontend
+        run: |
+          cd frontend
+          npm run build
 
-  - name: Build frontend
-    run: |
-      cd frontend
-      npm run build
+  deploy:
+    needs: ci
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy via SSH
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.VM_HOST }}
+          username: ${{ secrets.VM_USER }}
+          key: ${{ secrets.VM_SSH_KEY }}
+          script: |
+            cd /home/rishabh/MernChatApp
 
+            git pull origin main
 
+            cd server
+            npm install
 
-deploy:
-needs: ci  # runs only if ci runs properly
-runs-on: ubuntu-latest
+            cd ../frontend
+            npm install
 
-
-steps:
-  - name: Deploy via SSH
-    uses: appleboy/ssh-action@v1.0.3
-    with:
-      host: ${{ secrets.VM_HOST }}
-      username: ${{ secrets.VM_USER }}
-      key: ${{ secrets.VM_SSH_KEY }}
-      script: |
-        cd /home/rishabh/MernChatApp
-
-        git pull origin main
-
-        cd server
-        npm install
-
-        cd ../frontend
-        npm install
-
-        pm2 restart backend
-        pm2 restart frontend
-
+            pm2 restart backend
+            pm2 restart frontend
