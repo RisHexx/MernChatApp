@@ -7,5 +7,7 @@ import tailwindcss from '@tailwindcss/vite'
 export default defineConfig({
   plugins: [react() , tailwindcss()],
   host: true,
-  allowedHosts: 'all'
+  allowedHosts: [
+      'chat.rishabhkanojiya.in'
+    ]
 })
